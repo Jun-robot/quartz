@@ -30,7 +30,14 @@ jobs:
 
       - name: Update submodules to latest
         run: |
+          # 念のため .gitmodules の branch 情報を使うよう同期
+          git submodule sync --recursive
+          # リモートの最新まで進める
           git submodule update --init --remote --recursive
+          echo "Submodule commit:"
+          cd content
+          git rev-parse HEAD
+          git log -1 --oneline
 
       - uses: actions/setup-node@v4
         with:
