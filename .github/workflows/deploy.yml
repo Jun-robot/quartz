@@ -25,7 +25,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # git の履歴全部（作成日とかに使うため）
+          fetch-depth: 0
+          submodules: recursive   # ← submodule を取ってくる
+
+      - name: Update submodules to latest
+        run: |
+          git submodule update --init --remote --recursive
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -37,6 +43,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
+
 
   deploy:
     needs: build
