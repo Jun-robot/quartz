@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - v4  # ← ここ注意（後で説明）
+  repository_dispatch:
+    types:
+      - wiki-updated
+
 
 permissions:
   contents: read
